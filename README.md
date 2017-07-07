@@ -25,6 +25,6 @@ R-script: run_analysis.R
 		g. Repeat a-f for the training subject data
 		h. Merge the tidy Test and Training datasets
 		i. Sort the tidy merged dataset and take the average of each feature for each "activity" and "subject"
-		j. Write out the datasets from steps h. and j.
+		j. Write out the datasets from steps h. and i.
 			--tidydat_mrgbyactivity.txt
 			--tidydat_mrgbyactmean.txt
