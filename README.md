@@ -6,13 +6,13 @@ Project objectives:
 
 Submit the following to a Github repository:
 
-	1. a tidy data set as described below
+1. a tidy data set as produced by the R-script below
 	
-	2. a link to a Github repository with your script for performing the analysis
+2. a link to a Github repository with your script for performing the analysis
 	
-	3. a code book that describes the variables, the data, and any transformations or work that you performed to clean up the data called CodeBook.md. 
+3. a code book that describes the variables, the data, and any transformations or work that you performed to clean up the data called CodeBook.md. 
 	
-	4. This README.md explaining how all of the scripts work and how they are connected.
+4. This README.md explaining how all of the scripts work and how they are connected.
 
 R-script: run_analysis.R
 		
