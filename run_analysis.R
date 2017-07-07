@@ -72,7 +72,7 @@ byactivity <- mrgdat %>% group_by(subjectid, activity)
 final <- bysubject %>% summarise_all(mean)
 
 #Step #4 Dataset
-write.table(bysubject, file = "tidydat_mrgbyactivity.txt", sep = " ", row.names = FALSE)
+write.table(byactivity, file = "tidydat_mrgbyactivity.txt", sep = " ", row.names = FALSE)
 
 #Step #5 Dataset
 write.table(final, file = "tidydat_mrgbyactmean.txt", sep = " ", row.names = FALSE)
