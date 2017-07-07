@@ -1,0 +1,100 @@
+
+Database Processing Workflow and Codebook
+-----------------------------
+The column data, or features, for the project output dataset nameed tidydat_mrgbyactivity.txt selected for this database come from raw Accelerometer and gyroscope triaxial signals and were processed according to the following workflow. This workflow is, in part, edited from the original "features_info.txt" included with the "Human Activity Recognition Using Smartphones Dataset Version 1.0" (Anguita et al, 2012) 
+
+1) Read Input
+	-Sample Rate = 50Hz.
+	-Output in time domain, t<feature>,XYZ is used to denote 3-axial signals in the X, Y and Z directions.
+	-Output Feature/Column Names:
+		--tAcc-X,Y,Z:  accelerometer raw signals on 3 axes in time domain
+		--tGyro-X,Y,Z: gyroscope raw signals on 3 axes in time domain
+
+2) Noise Removal
+	-Median filter and a 3rd order low pass Butterworth filter 
+	-Corner frequency of 20 Hz.
+	-Number of Features/Columns: 3
+	-Output Feature/Column Names:
+		--tBodyGyro-XYZ
+
+3) Acceleration Signal (tAcc-X,Y,Z) separation
+	-Low pass Butterworth filter,Corner frequency = 0.3 Hz.
+	-Number of Features/Columns: 6
+	-Output Feature/Column Names:
+		--tBodyAcc-X,Y,Z: 		Body acceleration signal on 3 axes in time domain
+		--tGravityAcc-X,Y,Z:	Gravity acceleration signal on 3 axes in time domain
+		
+4) Jerk Signal generation
+	-Derive body linear acceleration and angular velocity to obtain Jerk signals
+	-Number of Features/Columns: 6
+	-Output Feature/Column Names:
+		--tBodyAccJerk-X,Y,Z:	Body acceleration Jerk signal on 3 axes in time domain
+		--tBodyGyroJerk-X,Y,Z:	Body gyroscope Jerk signals on 3 axes in time domain
+		
+5) Calculate Magnitude
+	-Euclidean norm
+	-Number of Features/Columns: 5
+	-Output Feature/Column Names:
+		--tBodyAccMag
+		--tBodyGyroMag 
+		--tGravityAccMag
+		--tBodyAccJerkMag
+		--tBodyGyroJerkMag
+
+6) Fast Fourier Transform (FFT) on select signals
+	-Output in frequency domain, f<feature>
+	-Number of Features/Columns: 13
+	-Feature/Column Names:
+		--fBodyAcc-X,Y,Z
+		--fBodyAccMag 
+		--fBodyAccJerk-X,Y,Z
+		--fBodyAccJerkMag
+		--fBodyGyro-X,Y,Z
+		--fBodyGyroMag
+		--fBodyGyroJerkMag
+		 
+7) Estimate a set of 17 derivatives from the output features. 
+	-Total features/derivatives/columns = 33 features * 17 derivatives = 561 columns
+	-The complete list of variables of each feature vector is available in 'features.txt' 
+	-mean(): Mean value
+	-std(): Standard deviation
+	-mad(): Median absolute deviation 
+	-max(): Largest value in array
+	-min(): Smallest value in array
+	-sma(): Signal magnitude area
+	-energy(): Energy measure. Sum of the squares divided by the number of values. 
+	-iqr(): Interquartile range 
+	-entropy(): Signal entropy
+	-arCoeff(): Autorregresion coefficients with Burg order equal to 4
+	-correlation(): correlation coefficient between two signals
+	-maxInds(): index of the frequency component with largest magnitude
+	-meanFreq(): Weighted average of the frequency components to obtain a mean frequency
+	-skewness(): skewness of the frequency domain signal 
+	-kurtosis(): kurtosis of the frequency domain signal 
+	-bandsEnergy(): Energy of a frequency interval within the 64 bins of the FFT of each window.
+	-angle(): Angle between two vectors(v1,v2) obtained by averaging the values in a single window sample
+		--gravityMean - v1=X,Y,Z, v2=gravityMean
+		--tBodyAccMean - v1=tBodyAccMean, v2=gravity
+		--tBodyAccJerkMean- v1=tBodyAccJerkMean, v2=gravityMean
+		--tBodyGyroMean - v1=tBodyGyroMean, v2=gravityMean
+		--tBodyGyroJerkMean - v1=tBodyGyroJerkMean, v2=gravityMean
+
+8)Clean data for analysis 
+	- R-script: run_analysis.R
+		a. Read test subject activity and id files
+		b. Transpose a data frame of 561 feature row descriptors to 561 column descriptors 
+		c. Poplute data frame with data values
+		d. Strip out only the mean and standard deviation feature data
+		e. Merge activity and subject id data with feature data
+		f. Exchange activity id for descriptive term, e.g 2 for "Walking Upstairs"
+		g. Repeat a-f for the training subject data
+		h. Merge the tidy Test and Training datasets
+		i. Sort the tidy merged dataset and take the average of each feature for each "activity" and "subject"
+		j. Write out the datasets from steps h. and j.
+			--tidydat_mrgbyactivity.txt
+			--tidydat_mrgbyactmean.txt
+
+
+		
+		
+
